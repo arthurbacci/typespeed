@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-#define LINE_LEN 256
+#define LINE_LEN 100
 
 void die(const char *string) {
 	perror(string);
@@ -66,12 +66,17 @@ int main(int argc, char **argv) {
 		linelen = strlen(line);
 
 		if (line[linelen - 1] != '\n')
-			line[linelen - 1] = '\n';
+			/* Choose another line, this one is too big */
+			continue;
 
 		printf("%s", line);
 		
-		if (fgets(input, LINE_LEN, stdin) == NULL)
-			die("Couldn't read a line from stdin");
+		if (fgets(input, LINE_LEN, stdin) == NULL) {
+			if (errno)
+				die("Couldn't read a line from stdin");
+			/* In the case of EOF */
+			continue;
+		}
 
 		if (strcmp(input, line) != 0)
 			break;
