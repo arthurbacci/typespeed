@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-#define LINE_LEN 10
+#define LINE_LEN 256
 
 void die(const char *string) {
 	perror(string);
@@ -14,6 +14,8 @@ void die(const char *string) {
 int main(int argc, char **argv) {
 	FILE *fp;
 	long file_size;
+	time_t start_time;
+	unsigned long chars = 0;
 
 	srand(time(NULL));
 
@@ -38,6 +40,8 @@ int main(int argc, char **argv) {
 	file_size = ftell(fp);
 	if (file_size < 0)
 		die("Couldn't get the file size");
+
+	start_time = time(NULL);
 
 	while (1) {
 		long pos;
@@ -71,7 +75,11 @@ int main(int argc, char **argv) {
 
 		if (strcmp(input, line) != 0)
 			break;
+
+		chars += linelen;
 	}
+	
+	printf("%.2f CPS\n", (float)chars / (time(NULL) - start_time));
 
 
 	fclose(fp);
