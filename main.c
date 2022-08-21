@@ -70,6 +70,7 @@ int main(int argc, char **argv) {
 			continue;
 
 		printf("%s", line);
+		fflush(stdout);
 		
 		if (fgets(input, LINE_LEN, stdin) == NULL) {
 			if (errno)
@@ -84,6 +85,7 @@ int main(int argc, char **argv) {
 		chars += linelen;
 	}
 	
+	/* TODO: fix division by zero */
 	printf("%.2f CPS\n", (float)chars / (time(NULL) - start_time));
 
 
