@@ -1,6 +1,6 @@
 # typespeed
 
-Really simple typing speed (CPS) calculator using ANSI C
+Really simple (65 cloc) typing speed (CPS) calculator using ANSI C
 
 ## Usage
 
