@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 	
 
 	file_size = ftell(fp);
-	if (file_size < 0)
+	if (file_size <= 0)
 		die("Couldn't get the file size");
 
 	start_time = time(NULL);
